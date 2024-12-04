@@ -13,53 +13,54 @@ import br.edu.uniritter.cardapio.data.UserDAO;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private UserDAO userDAO;
+    private UserDAO userDAO; // Classe que lida com o banco de dados para autenticação
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inicializar o UserDAO para manipulação do banco de dados
+        // Inicializa o UserDAO para manipular os dados no SQLite
         userDAO = new UserDAO(this);
 
-        // Criar o layout principal programaticamente
+        // Configuração do layout principal como LinearLayout (vertical)
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(16, 16, 16, 16);
 
-        // Criar o campo de email
+        // Campo de entrada para o email
         EditText edEmail = new EditText(this);
-        edEmail.setHint("Email");
+        edEmail.setHint("Email"); // Placeholder para o campo
         layout.addView(edEmail);
 
-        // Criar o campo de senha
+        // Campo de entrada para a senha
         EditText edPassword = new EditText(this);
-        edPassword.setHint("Senha");
+        edPassword.setHint("Senha"); // Placeholder para o campo
         layout.addView(edPassword);
 
-        // Criar o botão de login
+        // Botão para realizar o login
         Button btnLogin = new Button(this);
         btnLogin.setText("Login");
         layout.addView(btnLogin);
 
-        // Configurar a ação do botão de login
+        // Configura a ação do botão de login
         btnLogin.setOnClickListener(v -> {
+            // Obtém o email e a senha digitados
             String email = edEmail.getText().toString().trim();
             String password = edPassword.getText().toString().trim();
 
-            // Validar credenciais
+            // Valida as credenciais no banco de dados
             if (userDAO.authenticateUser(email, password)) {
+                // Login bem-sucedido, navega para a tela de boas-vindas
                 Toast.makeText(LoginActivity.this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show();
-
-                // Navegar para a tela de boas-vindas
                 startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
-                finish(); // Impede o retorno à tela de login
+                finish(); // Evita que o usuário volte para a tela de login
             } else {
+                // Credenciais incorretas
                 Toast.makeText(LoginActivity.this, "Email ou senha incorretos!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Configurar o layout como conteúdo da Activity
+        // Define o layout criado como o conteúdo da Activity
         setContentView(layout);
     }
 }

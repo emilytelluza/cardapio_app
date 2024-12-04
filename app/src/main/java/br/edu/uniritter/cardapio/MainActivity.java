@@ -13,26 +13,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Layout Principal
+        // Configuração do layout principal como LinearLayout (vertical)
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(16, 16, 16, 16);
 
-        // Botão de Login
+        // Botão para acessar a tela de login
         Button btnLogin = new Button(this);
-        btnLogin.setText("Login");
+        btnLogin.setText("Login"); // Texto do botão
         layout.addView(btnLogin);
 
-        // Botão de Cadastro
+        // Botão para acessar a tela de cadastro
         Button btnRegister = new Button(this);
-        btnRegister.setText("Cadastro");
+        btnRegister.setText("Cadastro"); // Texto do botão
         layout.addView(btnRegister);
 
-        // Navegação
+        // Navega para a tela de login ao clicar no botão
         btnLogin.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
+
+        // Navega para a tela de cadastro ao clicar no botão
         btnRegister.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
 
-        // Define o layout como o conteúdo da atividade
+        // Define o layout criado como o conteúdo da Activity
         setContentView(layout);
     }
 }

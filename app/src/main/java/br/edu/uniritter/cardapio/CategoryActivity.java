@@ -12,31 +12,33 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Obter a categoria da Intent
+        // Obtém o nome da categoria enviada pela Intent da tela anterior
         String category = getIntent().getStringExtra("category");
 
-        // Layout principal
+        // Configuração do layout principal como LinearLayout (vertical)
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(16, 16, 16, 16);
 
-        // Título
+        // Título que exibe o nome da categoria
         TextView tvTitle = new TextView(this);
-        tvTitle.setText("Itens na categoria: " + category);
-        tvTitle.setTextSize(18);
-        layout.addView(tvTitle);
+        tvTitle.setText("Itens na categoria: " + category); // Mostra a categoria recebida
+        tvTitle.setTextSize(18); // Tamanho do texto maior para o título
+        layout.addView(tvTitle); // Adiciona o título ao layout
 
-        // Adicionar itens da categoria
+        // Adiciona os itens específicos da categoria no layout
         String[] items = getItemsForCategory(category);
         for (String item : items) {
             TextView tvItem = new TextView(this);
-            tvItem.setText("- " + item);
-            layout.addView(tvItem);
+            tvItem.setText("- " + item); // Mostra cada item com um marcador
+            layout.addView(tvItem); // Adiciona o item ao layout
         }
 
+        // Define o layout criado como o conteúdo da Activity
         setContentView(layout);
     }
 
+    // Retorna os itens da categoria com base no nome recebido
     private String[] getItemsForCategory(String category) {
         switch (category) {
             case "Entradas":
@@ -46,7 +48,7 @@ public class CategoryActivity extends AppCompatActivity {
             case "Sobremesas":
                 return new String[]{"Pudim", "Torta de Limão", "Sorvete"};
             default:
-                return new String[]{};
+                return new String[]{}; // Retorna vazio se a categoria não for reconhecida
         }
     }
 }
